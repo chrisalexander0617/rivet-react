@@ -42,7 +42,20 @@ export const ProfilePage = () => {
           <Typography variant="h5">{profile.address}</Typography>
           <Button onClick={() => isModalOpen(!modalOpen)} sx={{my:3}} variant="contained">Edit Profile</Button>
         </Box>
-        {modalOpen && <EditProfileForm id={profile.id} />}
+        {modalOpen && ( 
+        <EditProfileForm 
+          id={profile.id}
+          first_name={profile.first_name}
+          last_name={profile.last_name}
+          phone={profile.phone}
+          email={profile.email}
+          address={profile.address}
+          city={profile.city}
+          state={profile.state}
+          zip={profile.zip}
+          photo={profile.photo}
+          notes={profile.notes}
+        />)}
     </div>
   );
 }
