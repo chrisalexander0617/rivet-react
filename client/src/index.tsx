@@ -8,12 +8,17 @@ import {
   RouterProvider,
 } from "react-router-dom"
 import {Root} from '../src/routes/root'
+import {ProfilePage} from './routes/ProfilePage';
 
 
 const router = createBrowserRouter([
   {
     path: "/",
     element: <Root />,
+  },
+  {
+    path: "/profile/:id",
+    element: <ProfilePage />
   },
 ]);
 

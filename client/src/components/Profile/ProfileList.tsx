@@ -8,7 +8,7 @@ export const ProfileList: React.FC<ProfileListType> = ({ profiles }) => {
     return (
         <>
         {profiles.map((profile, i) => (
-            <Link to={`/profiles/${profile.id.toString()}`}>
+            <Link to={`/profile/${profile.id.toString()}`}>
                 <Box p={3}>
                     <div key={i}>
                         <h1>{profile.first_name}</h1>
