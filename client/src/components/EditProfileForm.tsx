@@ -16,8 +16,16 @@ export const EditProfileForm: React.FC<ProfileType> = ({
      notes
 }) => {
 
-    const [firstName, setFirstName] = useState<string>(first_name)
-    const [lastName, setLastName] = useState<string>(last_name)
+    const [firstName, setFirstNameValue] = useState<string>(first_name)
+    const [lastName, setLastNameValue] = useState<string>(last_name)
+    const [phoneValue, setPhoneValue] = useState<string>(phone)
+    const [emailValue, setEmailValue] = useState<string>(email)
+    const [addressValue, setAddressValue] = useState<string>(address)
+    const [cityValue, setCityValue] = useState<string>(city)
+    const [stateValue, setStateValue] = useState<string>(state)
+    const [zipValue, setZipValue] = useState<string>(zip)
+    const [photoValue, setPhotoValue] = useState<string>(photo)
+    const [notesValue, setNotesValue] = useState<string>(notes)
 
     const styles = {
         display:'flex',
@@ -30,16 +38,16 @@ export const EditProfileForm: React.FC<ProfileType> = ({
     return (
         <>
             <Box sx={styles}>
-                <TextField onChange={e => setFirstName(e.target.value)} label="first name" value={firstName}/>
-                <TextField onChange={e => setLastName(e.target.value)}  label="last name" value={lastName}/>
-                <TextField onChange={e => setFirstName(e.target.value)} label="phone" value={phone} />
-                <TextField onChange={e => setFirstName(e.target.value)} label="email" value={email}/>
-                <TextField onChange={e => setFirstName(e.target.value)} label="address" value={address}/>
-                <TextField onChange={e => setFirstName(e.target.value)} label="city" value={city}/>
-                <TextField onChange={e => setFirstName(e.target.value)} label="city" value={state}/>
-                <TextField onChange={e => setFirstName(e.target.value)} label="city" value={zip}/>
-                <TextField onChange={e => setFirstName(e.target.value)} label="city" value={photo}/>
-                <TextField onChange={e => setFirstName(e.target.value)} label="notes" value={notes}/>
+                <TextField onChange={e => setFirstNameValue(e.target.value)} label="first name" value={firstName}/>
+                <TextField onChange={e => setLastNameValue(e.target.value)}  label="last name" value={lastName}/>
+                <TextField onChange={e => setPhoneValue(e.target.value)} label="phone" value={phone} />
+                <TextField onChange={e => setEmailValue(e.target.value)} label="email" value={email}/>
+                <TextField onChange={e => setAddressValue(e.target.value)} label="address" value={address}/>
+                <TextField onChange={e => setCityValue(e.target.value)} label="city" value={city}/>
+                <TextField onChange={e => setStateValue(e.target.value)} label="city" value={state}/>
+                <TextField onChange={e => setZipValue(e.target.value)} label="city" value={zip}/>
+                <TextField onChange={e => setPhotoValue(e.target.value)} label="city" value={photo}/>
+                <TextField onChange={e => setNotesValue(e.target.value)} label="notes" value={notes}/>
                 <Button>Update</Button>
             </Box>
         </>
