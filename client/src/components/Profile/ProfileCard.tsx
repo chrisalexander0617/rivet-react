@@ -1,20 +1,8 @@
 import React from 'react'
 import {Box,Typography} from '@mui/material'
+import {ProfileType} from '../../types/Profile'
 
-interface ProfileCardProps {
-    first_name:string & { __charLimit: 255 }
-    last_name:string & { __charLimit: 255 }
-    phone:string & { __charLimit: 255 }
-    email:string & { __charLimit: 255 }
-    address:string
-    city:string
-    state:string
-    zip: string & { __charLimit: 255 }
-    photo: string & { __charLimit: 255 }
-    notes:string & {__charlimit:255}
-}
-
-export const ProfileCard = (props:ProfileCardProps) => {
+export const ProfileCard = (props:ProfileType) => {
     return (
         <>
             <Box>
