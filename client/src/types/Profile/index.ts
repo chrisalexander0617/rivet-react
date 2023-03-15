@@ -1,4 +1,5 @@
 export interface ProfileType {
+    id:number
     first_name:string & { __charLimit: 255 }
     last_name:string & { __charLimit: 255 }
     phone:string & { __charLimit: 255 }
@@ -10,7 +11,6 @@ export interface ProfileType {
     photo: string & { __charLimit: 255 }
     notes:string & {__charlimit:255}
 }
-
 export interface ProfileListType {
     profiles:ProfileType[]
 }

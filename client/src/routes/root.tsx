@@ -1,4 +1,4 @@
-import React, {useEffect, useState} from 'react';
+import {useEffect, useState} from 'react';
 import '../App.css';
 import { ProfileAPI } from '../api/services/Profiles';
 import {ProfileType} from '../../src/types/Profile/index'
@@ -10,6 +10,7 @@ export const Root = () => {
 
   const loadProfiles = async () => {
     const result = await ProfileAPI.ListProfiles()
+    console.log(result)
     setProfiles(result)
     return result
   }
@@ -22,7 +23,7 @@ export const Root = () => {
 
   return (
     <div className="App">
-      <ProfileList profiles={profiles}  />
+      <ProfileList profiles={profiles} />
     </div>
   );
 }
