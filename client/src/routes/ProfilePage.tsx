@@ -1,11 +1,13 @@
-import {useEffect, useState} from 'react'
+import {useEffect, useState, useRef} from 'react'
 import {useParams} from 'react-router-dom'
 import { ProfileAPI } from '../api/services/Profiles';
-import {Box, Typography} from '@mui/material'
-
+import {Box, Typography, Button} from '@mui/material'
+import { EditProfileForm } from '../components/EditProfileForm';
 
 export const ProfilePage = () => {
-  const [profile, setProfile] = useState()
+  const mounted = useRef(false)
+  const [profile, setProfile] = useState<any>()
+  const [modalOpen, isModalOpen] = useState<boolean>(false)
   const routeParams = useParams();
 
   const getSingleProfile = async (id:string) => {
@@ -14,12 +16,33 @@ export const ProfilePage = () => {
   }
 
   useEffect(() => {
-    if(routeParams.id) getSingleProfile(routeParams.id)
-  },[])
+    mounted.current = true
+    
+    if(mounted.current){
+      if(routeParams?.id) { 
+        getSingleProfile(routeParams.id)
+      } else { console.log('No profile')}
+    } 
+    
+    return () => { mounted.current = false }
+  },[routeParams.id])
+
+  if(!profile) return <div>...loading</div>
+
+ 
 
   return (
     <div className="App">
-        Profile page
+        Profile 
+        <Box>
+          <Typography variant="h2">{profile.first_name}</Typography>
+          <Typography variant="h5">{profile.last_name}</Typography>
+          <Typography variant="h5">{profile.phone}</Typography>
+          <Typography variant="h5">{profile.email}</Typography>
+          <Typography variant="h5">{profile.address}</Typography>
+          <Button onClick={() => isModalOpen(!modalOpen)} sx={{my:3}} variant="contained">Edit Profile</Button>
+        </Box>
+        {modalOpen && <EditProfileForm id={profile.id} />}
     </div>
   );
 }
