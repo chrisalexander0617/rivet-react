@@ -45,4 +45,21 @@ const updateProfile = async (id:number, updatedProfile:ProfileType) => {
     }
 }
 
-export const ProfileAPI = {ListProfiles, getProfile, updateProfile}
+const createNewProfile = async (newProfile:ProfileType) => {
+    const apiURL = `https://codechallenge.rivet.work/api/v1/profile`
+
+    try {
+        const response = await axios.post(apiURL,newProfile, config)
+        window.location.reload()
+    } catch (err){
+        console.error('Unable to fetch employee profiles:', err);
+        throw err;
+    }
+}
+
+export const ProfileAPI = {
+    ListProfiles, 
+    getProfile, 
+    updateProfile, 
+    createNewProfile
+}
