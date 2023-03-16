@@ -1,6 +1,6 @@
-import React, {useState} from 'react'
+import {useState} from 'react'
 import {Box, Button, TextField, Typography} from '@mui/material'
-import { NewProfileType, ProfileType } from '../types/Profile'
+import { ProfileType } from '../types/Profile'
 import { ProfileAPI } from '../api/services/Profiles'
 
 export const AddNewProfileForm = () => {
@@ -16,7 +16,7 @@ export const AddNewProfileForm = () => {
   const [notesValue, setNotesValue] = useState<string>("")
 
   const newProfile:ProfileType = {
-    id:40,
+    id:40, // no static vars
     first_name:firstNameValue,
     last_name:lastNameValue,
     phone:phoneValue,

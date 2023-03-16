@@ -10,7 +10,6 @@ import {
 import {Root} from '../src/routes/root'
 import {ProfilePage} from './routes/ProfilePage';
 
-
 const router = createBrowserRouter([
   {
     path: "/",

@@ -9,13 +9,18 @@ function App() {
   const [loading, isLoading] = useState<boolean>(true);
 
   const loadProfiles = async () => {
+    isLoading(true)
+
     const result = await ProfileAPI.ListProfiles()
     setProfiles(result)
+   
+    isLoading(false)
+
     return result
   }
 
   useEffect(() => {
-   loadProfiles()
+    loadProfiles()
   },[loading])
 
   if(!profiles.length) return <div>Loading...</div>

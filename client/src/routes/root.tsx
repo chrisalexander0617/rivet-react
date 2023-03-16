@@ -13,7 +13,6 @@ export const Root = () => {
 
   const loadProfiles = async () => {
     const result = await ProfileAPI.ListProfiles()
-    console.log(result)
     setProfiles(result)
     return result
   }

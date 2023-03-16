@@ -29,8 +29,6 @@ export const ProfilePage = () => {
 
   if(!profile) return <div>...loading</div>
 
- 
-
   return (
     <div className="App">
         Profile 
