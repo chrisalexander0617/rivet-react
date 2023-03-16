@@ -45,7 +45,7 @@ const updateProfile = async (id:number, updatedProfile:ProfileType) => {
     }
 }
 
-const createNewProfile = async (newProfile:NewProfileType) => {
+const createNewProfile = async (newProfile:ProfileType) => {
     const apiURL = `https://codechallenge.rivet.work/api/v1/profile`
 
     try {

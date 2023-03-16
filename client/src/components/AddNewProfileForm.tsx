@@ -1,6 +1,6 @@
 import React, {useState} from 'react'
 import {Box, Button, TextField, Typography} from '@mui/material'
-import { NewProfileType } from '../types/Profile'
+import { NewProfileType, ProfileType } from '../types/Profile'
 import { ProfileAPI } from '../api/services/Profiles'
 
 export const AddNewProfileForm = () => {
@@ -15,7 +15,8 @@ export const AddNewProfileForm = () => {
   const [photoValue, setPhotoValue] = useState<string>("")
   const [notesValue, setNotesValue] = useState<string>("")
 
-  const newProfile:NewProfileType = {
+  const newProfile:ProfileType = {
+    id:40,
     first_name:firstNameValue,
     last_name:lastNameValue,
     phone:phoneValue,
