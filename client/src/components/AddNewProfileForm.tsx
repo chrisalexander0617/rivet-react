@@ -3,28 +3,17 @@ import {Box, Button, TextField, Typography} from '@mui/material'
 import { NewProfileType } from '../types/Profile'
 import { ProfileAPI } from '../api/services/Profiles'
 
-export const AddNewProfileForm: React.FC<NewProfileType> = ({ 
-  first_name,
-  last_name,
-  phone,
-  email,
-  address,
-  city,
-  state,
-  zip,
-  photo,
-  notes
-  }) => {
-  const [firstNameValue, setFirstNameValue] = useState<string>(first_name)
-  const [lastNameValue, setLastNameValue] = useState<string>(last_name)
-  const [phoneValue, setPhoneValue] = useState<string>(phone)
-  const [emailValue, setEmailValue] = useState<string>(email)
-  const [addressValue, setAddressValue] = useState<string>(address)
-  const [cityValue, setCityValue] = useState<string>(city)
-  const [stateValue, setStateValue] = useState<string>(state)
-  const [zipValue, setZipValue] = useState<string>(zip)
-  const [photoValue, setPhotoValue] = useState<string>(photo)
-  const [notesValue, setNotesValue] = useState<string>(notes)
+export const AddNewProfileForm = () => {
+  const [firstNameValue, setFirstNameValue] = useState<string>("")
+  const [lastNameValue, setLastNameValue] = useState<string>("")
+  const [phoneValue, setPhoneValue] = useState<string>("")
+  const [emailValue, setEmailValue] = useState<string>("")
+  const [addressValue, setAddressValue] = useState<string>("")
+  const [cityValue, setCityValue] = useState<string>("")
+  const [stateValue, setStateValue] = useState<string>("")
+  const [zipValue, setZipValue] = useState<string>("")
+  const [photoValue, setPhotoValue] = useState<string>("")
+  const [notesValue, setNotesValue] = useState<string>("")
 
   const newProfile:NewProfileType = {
     first_name:firstNameValue,
@@ -39,14 +28,15 @@ export const AddNewProfileForm: React.FC<NewProfileType> = ({
     notes:notesValue
   }
 
-  const handleUpdateProfile = async () => {
-      try {
-          const result = await ProfileAPI.updateProfile(id, new)
-          console.log('result')
-      } catch(err){
-          console.log(err, 'Something went wrong as hell')
-      }
-  }
+  const handleAddNewProfile = async () => {
+    console.log('new Profile', newProfile)
+        try {
+            const result = await ProfileAPI.createNewProfile(newProfile)
+            console.log('result', result)
+        }   catch(err){
+            console.log(err, 'Something went wrong as hell')
+        }
+    }
 
     const styles = {
         display:'flex',
@@ -69,7 +59,7 @@ export const AddNewProfileForm: React.FC<NewProfileType> = ({
                 <TextField onChange={e => setZipValue(e.target.value)} label="zip" value={zipValue}/>
                 <TextField onChange={e => setPhotoValue(e.target.value)} label="photo" value={photoValue}/>
                 <TextField onChange={e => setNotesValue(e.target.value)} label="notes" value={notesValue}/>
-                <Button onClick={handleUpdateProfile}>Update</Button>
+                <Button onClick={handleAddNewProfile}>Update</Button>
             </Box>
         </>
     )

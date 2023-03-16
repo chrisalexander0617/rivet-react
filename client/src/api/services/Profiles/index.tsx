@@ -1,5 +1,5 @@
 import axios from 'axios'
-import {ProfileType} from '../../../types/Profile';
+import {ProfileType, NewProfileType} from '../../../types/Profile';
 
 const config = {
     headers:{
@@ -45,7 +45,7 @@ const updateProfile = async (id:number, updatedProfile:ProfileType) => {
     }
 }
 
-const createNewProfile = async (newProfile:ProfileType) => {
+const createNewProfile = async (newProfile:NewProfileType) => {
     const apiURL = `https://codechallenge.rivet.work/api/v1/profile`
 
     try {
