@@ -1,15 +1,15 @@
 export interface ProfileType {
     id:number
-    first_name:string & { __charLimit: 255 }
-    last_name:string & { __charLimit: 255 }
-    phone:string & { __charLimit: 255 }
-    email:string & { __charLimit: 255 }
+    first_name:string
+    last_name:string
+    phone:string
+    email:string
     address:string
     city:string
     state:string
-    zip: string & { __charLimit: 255 }
-    photo: string & { __charLimit: 255 }
-    notes:string & {__charlimit:255}
+    zip:string 
+    photo:string
+    notes:string
 }
 export interface ProfileListType {
     profiles:ProfileType[]
