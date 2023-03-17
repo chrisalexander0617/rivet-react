@@ -1,7 +1,8 @@
 import { useState } from 'react'
-import { Box, Button, TextField, Typography } from '@mui/material'
+import { Box, Button, FormControl, InputLabel, Input, FormHelperText, TextField, Typography } from '@mui/material'
 import { NewProfileType, FieldDataType } from '../types/Profile'
 import { ProfileAPI } from '../api/services/Profiles'
+
 
 export const AddNewProfileForm = () => {
 	const [firstNameValue, setFirstNameValue] = useState<string>("")
@@ -131,24 +132,35 @@ export const AddNewProfileForm = () => {
 		},
 	]
 
+	// const styles = {
+	// 	display: 'flex',
+	// 	flexDirection: 'column',
+	// 	width: '400px',
+	// 	margin: '0 auto',
+	// 	gap: 1
+	// }
+
 	const styles = {
-		display: 'flex',
-		flexDirection: 'column',
-		width: '400px',
-		margin: '0 auto',
-		gap: 1
-	}
+		position: 'absolute' as 'absolute',
+		top: '50%',
+		left: '50%',
+		transform: 'translate(-50%, -50%)',
+		width: 400,
+		bgcolor: 'background.paper',
+		border: '2px solid #000',
+		boxShadow: 24,
+		p: 4,
+	};
 
 	return (
 		<>
 			<Box sx={styles}>
 				{fieldData.map((item, i) => (
-					<TextField
-						label={item.label}
-						onChange={item.handleStateChange}
-						value={item.value}
-						inputProps={{ maxLength: item.maxLength }}
-					/>
+					<FormControl>
+						<InputLabel htmlFor="my-input">{item.label}</InputLabel>
+						<Input inputProps={{ maxLength: item.maxLength }} onChange={item.handleStateChange} value={item.value} id={`${item.label}-${i}`} aria-describedby={`${item.label}-${i}`} required />
+						<FormHelperText id="my-helper-text">We'll never share your email.</FormHelperText>
+					</FormControl>
 				))}
 				<Button onClick={handleAddNewProfile}>Update</Button>
 			</Box>
