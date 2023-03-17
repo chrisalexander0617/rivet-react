@@ -27,8 +27,7 @@ const getProfile = async (id:string) => {
         const response = await axios.get(apiURL, config)
         return response.data
     } catch (err){
-        console.error('Unable to fetch employee profiles:', err);
-        throw err;
+        throw new Error(`Unable to get the employees profile: ${err}`);
     }
 }
 
@@ -40,26 +39,19 @@ const updateProfile = async (id:number, updatedProfile:ProfileType) => {
         const response = await axios.put(apiURL,updatedProfile, config)
         window.location.reload()
     } catch (err){
-        console.error('Unable to fetch employee profiles:', err);
-        throw err;
+        throw new Error(`Unable to get the employees profiles: ${err}`);
     }
 }
 
 const createNewProfile = async (newProfile:NewProfileType) => {
     const apiURL = `https://codechallenge.rivet.work/api/v1/profile`
-
-    console.log('Here is the new profile', newProfile)
-
     const jsonData = JSON.stringify(newProfile)
 
-    console.log('jsonData', jsonData)
-
     try {
-        const response = await axios.post(apiURL, jsonData, config)
+        await axios.post(apiURL, jsonData, config)
         window.location.reload()
     } catch (err){
-        console.error('Unable to fetch employee profiles:', err);
-        throw err;
+        throw new Error(`Unable to create employee profiles: ${err}`);
     }
 }
 

@@ -25,6 +25,18 @@ export interface NewProfileType  {
     notes:string
 }
 
+export interface SyntheticEvent<T> {
+    currentTarget: EventTarget & T;
+}
+
 export interface ProfileListType {
     profiles:ProfileType[]
+}
+
+export interface FieldDataType {
+    label:string
+    value : string
+    maxLength:number
+    required:boolean
+    handleStateChange: (e: React.ChangeEvent<HTMLInputElement>) => void
 }
