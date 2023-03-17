@@ -4,6 +4,7 @@ import { ProfileAPI } from '../api/services/Profiles';
 import {Box, Container, Typography, Button} from '@mui/material'
 import { EditProfileForm } from '../components/EditProfileForm';
 
+
 export const ProfilePage = () => {
   const mounted = useRef(false)
   const [profile, setProfile] = useState<any>()
@@ -13,6 +14,12 @@ export const ProfilePage = () => {
   const getSingleProfile = async (id:string) => {
     const result = await ProfileAPI.getProfile(id)
     setProfile(result)
+  }
+
+  const styles = {
+    ProfileWrapper: {
+      textAlign:'left'
+    }
   }
 
   useEffect(() => {
@@ -31,15 +38,41 @@ export const ProfilePage = () => {
 
   return (
     <div className="App">
-        Profile 
-        <Box>
-          <Typography variant="h2">{profile.first_name}</Typography>
-          <Typography variant="h5">{profile.last_name}</Typography>
-          <Typography variant="h5">{profile.phone}</Typography>
-          <Typography variant="h5">{profile.email}</Typography>
-          <Typography variant="h5">{profile.address}</Typography>
-          <Button onClick={() => isModalOpen(!modalOpen)} sx={{my:3}} variant="contained">Edit Profile</Button>
-        </Box>
+        <Container>
+          <Box py={5} sx={styles.ProfileWrapper}>
+          <Typography variant="body1" mb={1}>Profile</Typography>
+            <Box sx={{
+              display:'flex' , 
+              flexDirection:'column',
+              alignItems:'start',
+              justifyContent:'left',
+              gap:2
+              }}>
+              <Box
+                component="img"
+                sx={{
+                  height: 350,
+                  width: 350,
+                  borderRadius:'100%',
+                  maxHeight: { xs: 233, md: 233 },
+                  maxWidth: { xs: 233, md: 233 },
+                  objectFit:'cover'
+                }}
+                alt="The house from the offer."
+                src={profile.photo ? profile.photo : 'https://images.unsplash.com/photo-1670272504471-61a632484750?ixlib=rb-4.0.3&ixid=MnwxMjA3fDF8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=2070&q=80'}
+              />
+              <Typography mr={1} variant="h3">{profile.first_name}</Typography>
+              <Typography variant="h3">{profile.last_name}</Typography>
+              <Typography variant="h5">{profile.phone}</Typography>
+              <Typography variant="h5">{profile.email}</Typography>
+              <Typography variant="h5">{profile.address}</Typography>
+            </Box>
+       
+            <Button onClick={() => isModalOpen(!modalOpen)} sx={{my:3, mr:2}} variant="contained">Edit Profile</Button>
+            <Button onClick={() => isModalOpen(!modalOpen)} sx={{my:3}} variant="outlined">Back Home</Button>
+
+          </Box>
+        </Container>
         {modalOpen && ( 
         <EditProfileForm 
           id={profile.id}

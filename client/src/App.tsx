@@ -1,7 +1,7 @@
-import React, {useEffect, useState} from 'react';
+import React, { useEffect, useState } from 'react';
 import './App.css';
 import { ProfileAPI } from './api/services/Profiles';
-import {ProfileType} from '../src/types/Profile/index'
+import { ProfileType } from '../src/types/Profile/index'
 import { ProfileList } from './components/Profile/ProfileList';
 
 function App() {
@@ -13,21 +13,19 @@ function App() {
 
     const result = await ProfileAPI.ListProfiles()
     setProfiles(result)
-   
-    isLoading(false)
 
-    return result
+    isLoading(false)
   }
 
   useEffect(() => {
     loadProfiles()
-  },[loading])
+  }, [loading])
 
-  if(!profiles.length) return <div>Loading...</div>
+  if (!profiles.length) return <div>Loading...</div>
 
   return (
     <div className="App">
-      <ProfileList profiles={profiles}  />
+      <ProfileList profiles={profiles} />
     </div>
   );
 }
