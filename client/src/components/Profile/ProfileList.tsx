@@ -2,6 +2,7 @@ import React from 'react'
 import { Box, Container, Grid, Typography } from '@mui/material'
 import { ProfileListType } from '../../types/Profile/index'
 import { Link } from 'react-router-dom'
+import { isValidHttpUrl } from '../../utils'
 
 export const ProfileList: React.FC<ProfileListType> = ({ profiles }) => {
   const styles = {
@@ -11,16 +12,6 @@ export const ProfileList: React.FC<ProfileListType> = ({ profiles }) => {
       textDecoration: 'none',
       border: 'solid 1px black'
     }
-  }
-
-  const isValidHttpUrl = (str: string) => {
-    let url;
-    try {
-      url = new URL(str);
-    } catch (_) {
-      return false;
-    }
-    return url.protocol === "http:" || url.protocol === "https:";
   }
 
   return (
@@ -46,7 +37,7 @@ export const ProfileList: React.FC<ProfileListType> = ({ profiles }) => {
                       marginRight: 3,
                     }}
                     alt="No Image"
-                    src={isValidHttpUrl(profile.photo) ? profile.photo : 'https://images.unsplash.com/photo-1670272504471-61a632484750?ixlib=rb-4.0.3&ixid=MnwxMjA3fDF8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=2070&q=80'}
+                    src={isValidHttpUrl(profile.photo) ? profile.photo : 'https://cdn.pixabay.com/photo/2015/10/05/22/37/blank-profile-picture-973460_1280.png'}
                   />
                   <Box>
                     <Typography color="black" variant="h5">{profile.first_name}</Typography>
