@@ -1,7 +1,7 @@
 import {useEffect, useState, useRef} from 'react'
 import {useParams} from 'react-router-dom'
 import { ProfileAPI } from '../api/services/Profiles';
-import {Box, Typography, Button} from '@mui/material'
+import {Box, Container, Typography, Button} from '@mui/material'
 import { EditProfileForm } from '../components/EditProfileForm';
 
 export const ProfilePage = () => {
