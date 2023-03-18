@@ -8,14 +8,31 @@ const config = {
     }
 }
 
+
+
 const ListProfiles = async () => {
     const apiURL = 'https://codechallenge.rivet.work/api/v1/profiles'
 
     try {
         const response = await axios.get(apiURL, config)
         return response.data
-    } catch (err){
+    } catch (err:any){
         console.error('Unable to fetch employee profiles:', err);
+        if (err.response) {
+            // The request was made and the server responded with a status code
+            // that falls out of the range of 2xx
+            console.log(err.response.data);
+            console.log(err.response.status);
+            console.log(err.response.headers);
+          } else if (err.request) {
+            // The request was made but no response was received
+            // `error.request` is an instance of XMLHttpRequest in the browser and an instance of
+            // http.ClientRequest in node.js
+            console.log(err.request);
+          } else {
+            // Something happened in setting up the request that triggered an Error
+            console.log('Error', err.message);
+         }
         throw err;
     }
 }
@@ -50,8 +67,21 @@ const createNewProfile = async (newProfile:NewProfileType) => {
     try {
         await axios.post(apiURL, jsonData, config)
         window.location.reload()
-    } catch (err){
-        throw new Error(`Unable to create employee profiles: ${err}`);
+    } catch (err:any){
+        if (err.response) {
+
+            return err.response.data
+
+          } else if (err.request) {
+            // The request was made but no response was received
+            // `error.request` is an instance of XMLHttpRequest in the browser and an instance of
+            // http.ClientRequest in node.js
+            
+            return err.request
+          } else {
+            // Something happened in setting up the request that triggered an Error
+            return err.message
+        }
     }
 }
 

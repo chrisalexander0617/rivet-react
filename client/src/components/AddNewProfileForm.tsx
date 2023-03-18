@@ -3,7 +3,6 @@ import { Box, Button, FormControl, InputLabel, Input, FormHelperText, TextField,
 import { NewProfileType, FieldDataType } from '../types/Profile'
 import { ProfileAPI } from '../api/services/Profiles'
 
-
 export const AddNewProfileForm = () => {
 	const [firstNameValue, setFirstNameValue] = useState<string>("")
 	const [lastNameValue, setLastNameValue] = useState<string>("")
@@ -15,8 +14,9 @@ export const AddNewProfileForm = () => {
 	const [zipValue, setZipValue] = useState<string>("")
 	const [photoValue, setPhotoValue] = useState<string>("")
 	const [notesValue, setNotesValue] = useState<string>("")
+	const [errors, setErrors] = useState<string[]>()
 
-	const newProfile: NewProfileType = {
+	const newProfile:NewProfileType = {
 		first_name: firstNameValue,
 		last_name: lastNameValue,
 		phone: phoneValue,
@@ -30,13 +30,24 @@ export const AddNewProfileForm = () => {
 	}
 
 	const handleAddNewProfile = async () => {
-		console.log('new Profile', newProfile)
+		// resets errors when user retries
+		setErrors([])
+
 		try {
 			const result = await ProfileAPI.createNewProfile(newProfile)
-			console.log('result', result)
-		} catch (err) {
-			console.log(err, 'Something went wrong as hell')
-		}
+
+			// find a way tp make sure all 
+			// error data is sent to the catch block
+			let errorsStringArray:string[] = []
+
+			result.errors.forEach((item:any) => {
+				const errorString = `${item.msg}:${item.param}`
+				errorsStringArray.push(errorString)
+			})
+
+			setErrors(errorsStringArray)
+
+		} catch (err) { console.log(err, 'Something went wrong as hell') }
 	}
 
 	const fieldData: FieldDataType[] = [
@@ -132,14 +143,6 @@ export const AddNewProfileForm = () => {
 		},
 	]
 
-	// const styles = {
-	// 	display: 'flex',
-	// 	flexDirection: 'column',
-	// 	width: '400px',
-	// 	margin: '0 auto',
-	// 	gap: 1
-	// }
-
 	const styles = {
 		position: 'absolute' as 'absolute',
 		top: '50%',
@@ -155,10 +158,22 @@ export const AddNewProfileForm = () => {
 	return (
 		<>
 			<Box sx={styles}>
+				<Box>
+					{errors && errors?.map((error, i) => (
+						<Typography color="red">{error}</Typography>
+					))}
+				</Box>
 				{fieldData.map((item, i) => (
 					<FormControl>
 						<InputLabel htmlFor="my-input">{item.label}</InputLabel>
-						<Input inputProps={{ maxLength: item.maxLength }} onChange={item.handleStateChange} value={item.value} id={`${item.label}-${i}`} aria-describedby={`${item.label}-${i}`} required />
+						<Input 
+							inputProps={{ maxLength: item.maxLength }} 
+							onChange={item.handleStateChange} 
+							value={item.value} 
+							id={`${item.label}-${i}`} 
+							aria-describedby={`${item.label}-${i}`} 
+							required 
+						/>
 						<FormHelperText id="my-helper-text">We'll never share your email.</FormHelperText>
 					</FormControl>
 				))}
