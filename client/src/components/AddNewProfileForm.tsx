@@ -3,7 +3,11 @@ import { Box, Button, FormControl, InputLabel, Input, FormHelperText, TextField,
 import { NewProfileType, FieldDataType } from '../types/Profile'
 import { ProfileAPI } from '../api/services/Profiles'
 
-export const AddNewProfileForm = () => {
+interface AddNewProfileFormProps {
+	handleClose:() => void
+}
+
+export const AddNewProfileForm = (props:AddNewProfileFormProps) => {
 	const [firstNameValue, setFirstNameValue] = useState<string>("")
 	const [lastNameValue, setLastNameValue] = useState<string>("")
 	const [phoneValue, setPhoneValue] = useState<string>("")
@@ -192,6 +196,7 @@ export const AddNewProfileForm = () => {
 					</FormControl>
 				))}
 				<Button disabled={isFormFilledOut()} onClick={handleAddNewProfile}>Update</Button>
+				<Button onClick={props.handleClose}>Close</Button>
 			</Box>
 		</>
 	)

@@ -17,6 +17,12 @@ export const Root = () => {
     return result
   }
 
+  console.log('Handle Close!')
+  
+  const handleCloseModal = () =>  {
+    isModalOpen(!modalOpen)
+  }
+
   useEffect(() => {
     loadProfiles()
   }, [loading])
@@ -26,7 +32,7 @@ export const Root = () => {
   return (
     <div className="App">
       <Button onClick={() => isModalOpen(!modalOpen)}>Add New Profile</Button>
-      {modalOpen && <AddNewProfileForm />}
+      {modalOpen && <AddNewProfileForm handleClose={handleCloseModal} />}
       <ProfileList profiles={profiles} />
     </div>
   );
