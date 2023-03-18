@@ -64,9 +64,12 @@ export const ProfilePage = () => {
                         />
                         <Typography mr={1} variant="h3">{profile.first_name}</Typography>
                         <Typography variant="h3">{profile.last_name}</Typography>
-                        <Typography variant="h5">{profile.phone}</Typography>
-                        <Typography variant="h5">{profile.email}</Typography>
-                        <Typography variant="h5">{profile.address}</Typography>
+                        <Typography variant="h5">Phone #:{profile.phone}</Typography>
+                        <Typography variant="h5">Email:{profile.email}</Typography>
+                        <Typography variant="h5">Address:{profile.address}</Typography>
+                        <Typography variant="h5">City:{profile.city}</Typography>
+                        <Typography variant="h5">State:{profile.state}</Typography>
+                        <Typography variant="h5">Notes:{profile.notes}</Typography>
                     </Box>
 
                     <Button onClick={() => isModalOpen(!modalOpen)} sx={{ my: 3, mr: 2 }} variant="contained">Edit Profile</Button>

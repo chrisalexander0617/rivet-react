@@ -29,6 +29,20 @@ export const AddNewProfileForm = () => {
 		notes: notesValue
 	}
 
+	const isFormFilledOut = ():boolean => {
+		if(firstNameValue.length < 3 ||
+				lastNameValue.length < 3 ||
+				phoneValue.length < 10 ||
+				emailValue.length < 7 ||
+				addressValue.length < 5 ||
+				cityValue.length < 3 ||
+				stateValue.length < 2 ||
+				zipValue.length < 5
+			) return true
+
+			else return false
+	}
+
 	const handleAddNewProfile = async () => {
 		// resets errors when user retries
 		setErrors([])
@@ -177,7 +191,7 @@ export const AddNewProfileForm = () => {
 						<FormHelperText id="my-helper-text">We'll never share your email.</FormHelperText>
 					</FormControl>
 				))}
-				<Button onClick={handleAddNewProfile}>Update</Button>
+				<Button disabled={isFormFilledOut()} onClick={handleAddNewProfile}>Update</Button>
 			</Box>
 		</>
 	)
