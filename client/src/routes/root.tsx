@@ -32,7 +32,7 @@ export const Root = () => {
     loadProfiles()
   }, [loading])
 
-  if (!profiles.length || loading) return <ScreenLoader />
+  if (loading) return <ScreenLoader />
 
   return (
     <Box p={1} className="App">

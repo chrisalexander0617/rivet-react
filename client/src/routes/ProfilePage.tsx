@@ -13,12 +13,27 @@ export const ProfilePage = () => {
 
   const getSingleProfile = async (id: string) => {
     const result = await ProfileAPI.getProfile(id)
-    setProfile(result)
+    if(result) setProfile(result)
   }
 
   const styles = {
     ProfileWrapper: {
       textAlign: 'left'
+    },
+    FlexBox:{
+      display: 'flex',
+      flexDirection: 'column',
+      alignItems: 'start',
+      justifyContent: 'left',
+      gap: 2
+    },
+    ProfileImage:{
+      height: 350,
+      width: 350,
+      borderRadius: '100%',
+      maxHeight: { xs: 233, md: 233 },
+      maxWidth: { xs: 233, md: 233 },
+      objectFit: 'cover'
     }
   }
 
@@ -26,9 +41,9 @@ export const ProfilePage = () => {
     mounted.current = true
 
     if (mounted.current) {
-        if (routeParams?.id) {
-            getSingleProfile(routeParams.id)
-        } else { console.log('No profile') }
+      if (routeParams?.id) {
+          getSingleProfile(routeParams.id)
+      } else { console.log('No profile') }
     }
 
     return () => { mounted.current = false }
@@ -41,22 +56,10 @@ export const ProfilePage = () => {
       <Container>
         <Box py={5} sx={styles.ProfileWrapper}>
         <Typography variant="body1" mb={1}>Profile</Typography>
-        <Box sx={{
-            display: 'flex',
-            flexDirection: 'column',
-            alignItems: 'start',
-            justifyContent: 'left',
-            gap: 2
-        }}>
+        <Box sx={styles.FlexBox}>
           <Box
             component="img"
-            sx={{
-              height: 350,
-              width: 350,
-              borderRadius: '100%',
-              maxHeight: { xs: 233, md: 233 },
-              maxWidth: { xs: 233, md: 233 },
-              objectFit: 'cover'}}
+            sx={styles.ProfileImage}
             alt="The house from the offer."
             src={isValidHttpUrl(profile.photo) ? profile.photo : 'https://cdn.pixabay.com/photo/2015/10/05/22/37/blank-profile-picture-973460_1280.png'}
           />
@@ -74,19 +77,19 @@ export const ProfilePage = () => {
         </Box>
       </Container>
     {modalOpen && (
-      <EditProfileForm
-        id={profile.id}
-        first_name={profile.first_name}
-        last_name={profile.last_name}
-        phone={profile.phone}
-        email={profile.email}
-        address={profile.address}
-        city={profile.city}
-        state={profile.state}
-        zip={profile.zip}
-        photo={profile.photo}
-        notes={profile.notes}
-      />)}
+    <EditProfileForm
+      id={profile.id}
+      first_name={profile.first_name}
+      last_name={profile.last_name}
+      phone={profile.phone}
+      email={profile.email}
+      address={profile.address}
+      city={profile.city}
+      state={profile.state}
+      zip={profile.zip}
+      photo={profile.photo}
+      notes={profile.notes}
+    />)}
     </Box>
   );
 }

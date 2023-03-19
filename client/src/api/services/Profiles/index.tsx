@@ -66,7 +66,6 @@ const createNewProfile = async (newProfile:NewProfileType) => {
 
     try {
         await axios.post(apiURL, jsonData, config)
-        console.log('successful post')
         window.location.reload()
     } catch (err:any){
         if (err.response) {

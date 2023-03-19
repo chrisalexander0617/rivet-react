@@ -54,20 +54,27 @@ export const AddNewProfileForm = (props:AddNewProfileFormProps) => {
 		try {
 			const result = await ProfileAPI.createNewProfile(newProfile)
 
+			console.log('Result from API', result)
+
+
+
 			// find a way tp make sure all 
 			// error data is sent to the catch block
-			let errorsStringArray:string[] = []
 
-			result.errors.forEach((item:any) => {
-				const errorString = `${item.msg}:${item.param}`
-				errorsStringArray.push(errorString)
-			})
+			if (result.errors){
+				let errorsStringArray:string[] = []
 
-			setErrors(errorsStringArray)
+				result.errors.forEach((item:any) => {
+					const errorString = `${item.msg}:${item.param}`
+					errorsStringArray.push(errorString)
+				})
 
-		} catch (err) { 
-			
-		}
+				setErrors(errorsStringArray)
+			}
+
+		} catch (err) {
+			console.log('Something went wrong', err)
+		 }
 	}
 
 	const fieldData: FieldDataType[] = [
@@ -164,15 +171,17 @@ export const AddNewProfileForm = (props:AddNewProfileFormProps) => {
 	]
 
 	const styles = {
+    display:'flex',
+    flexDirection:'column',
+    gap:3,
 		position: 'absolute' as 'absolute',
 		top: '50%',
 		left: '50%',
 		transform: 'translate(-50%, -50%)',
 		width: 400,
-		bgcolor: 'background.paper',
-		border: '2px solid #000',
-		boxShadow: 24,
+		bgcolor: '#fafafa',
 		p: 4,
+    boxShadow:4,
 		zIndex:20
 	};
 
@@ -200,7 +209,6 @@ export const AddNewProfileForm = (props:AddNewProfileFormProps) => {
 									aria-describedby={`${item.label}-${i}`} 
 									required 
 								/>
-								<FormHelperText id="my-helper-text">We'll never share your email.</FormHelperText>
 							</FormControl>
 						</Grid>
 					))}
