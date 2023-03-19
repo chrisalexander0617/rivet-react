@@ -1,10 +1,12 @@
 import { useEffect, useState } from 'react';
 import '../App.css';
-import { Button } from '@mui/material'
+import {Box, Typography} from '@mui/material'
+import {Navbar} from '../components/NavBar/NavBar'
 import { ProfileAPI } from '../api/services/Profiles';
 import { ProfileType } from '../../src/types/Profile/index'
-import { ProfileList } from '../components/Profile/ProfileList';
 import { AddNewProfileForm } from '../components/AddNewProfileForm';
+import { ProfileTable } from '../components/Profile/ProfileTable';
+import { ScreenLoader } from '../components/ScreenLoader';
 
 export const Root = () => {
   const [profiles, setProfiles] = useState<ProfileType[]>([]);
@@ -14,26 +16,38 @@ export const Root = () => {
   const loadProfiles = async () => {
     const result = await ProfileAPI.ListProfiles()
     setProfiles(result)
+    isLoading(false)
     return result
   }
-
-  console.log('Handle Close!')
   
   const handleCloseModal = () =>  {
-    isModalOpen(!modalOpen)
+    isModalOpen(false)
+  }
+
+  const handleOpenModal = () =>  {
+    isModalOpen(true)
   }
 
   useEffect(() => {
     loadProfiles()
   }, [loading])
 
-  if (!profiles.length) return <div>Loading...</div>
+  if (!profiles.length || loading) return <ScreenLoader />
 
   return (
-    <div className="App">
-      <Button onClick={() => isModalOpen(!modalOpen)}>Add New Profile</Button>
-      {modalOpen && <AddNewProfileForm handleClose={handleCloseModal} />}
-      <ProfileList profiles={profiles} />
-    </div>
+    <Box p={1} className="App">
+      <Navbar handleOpenModal={handleOpenModal} />
+        {modalOpen && <AddNewProfileForm handleCloseModal={handleCloseModal} />}
+        <Box sx={{
+            display:'flex',
+            alignItems:'left',
+            flexDirection:'column',
+            gap:3
+          }} 
+          p={3}>
+          <Typography variant="h4" align="left">Profile Directory</Typography>
+          <ProfileTable profiles={profiles} />
+        </Box>
+    </Box>
   );
 }

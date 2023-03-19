@@ -1,10 +1,10 @@
 import { useState } from 'react'
-import { Box, Button, FormControl, InputLabel, Input, FormHelperText, TextField, Typography } from '@mui/material'
+import { Box, Button, FormControl, InputLabel, Input, FormHelperText, Grid, Typography } from '@mui/material'
 import { NewProfileType, FieldDataType } from '../types/Profile'
 import { ProfileAPI } from '../api/services/Profiles'
 
 interface AddNewProfileFormProps {
-	handleClose:() => void
+	handleCloseModal:() => void
 }
 
 export const AddNewProfileForm = (props:AddNewProfileFormProps) => {
@@ -65,7 +65,9 @@ export const AddNewProfileForm = (props:AddNewProfileFormProps) => {
 
 			setErrors(errorsStringArray)
 
-		} catch (err) { console.log(err, 'Something went wrong as hell') }
+		} catch (err) { 
+			
+		}
 	}
 
 	const fieldData: FieldDataType[] = [
@@ -171,32 +173,40 @@ export const AddNewProfileForm = (props:AddNewProfileFormProps) => {
 		border: '2px solid #000',
 		boxShadow: 24,
 		p: 4,
+		zIndex:20
 	};
 
 	return (
 		<>
 			<Box sx={styles}>
 				<Box>
+					<Typography variant="h5" textAlign="center">Add New Profile</Typography>
+				</Box>
+				<Box>
 					{errors && errors?.map((error, i) => (
 						<Typography color="red">{error}</Typography>
 					))}
 				</Box>
-				{fieldData.map((item, i) => (
-					<FormControl>
-						<InputLabel htmlFor="my-input">{item.label}</InputLabel>
-						<Input 
-							inputProps={{ maxLength: item.maxLength }} 
-							onChange={item.handleStateChange} 
-							value={item.value} 
-							id={`${item.label}-${i}`} 
-							aria-describedby={`${item.label}-${i}`} 
-							required 
-						/>
-						<FormHelperText id="my-helper-text">We'll never share your email.</FormHelperText>
-					</FormControl>
-				))}
-				<Button disabled={isFormFilledOut()} onClick={handleAddNewProfile}>Update</Button>
-				<Button onClick={props.handleClose}>Close</Button>
+				<Grid container>
+					{fieldData.map((item, i) => (
+						<Grid item xs={6}>
+							<FormControl>
+								<InputLabel htmlFor="my-input">{item.label}</InputLabel>
+								<Input 
+									inputProps={{ maxLength: item.maxLength }} 
+									onChange={item.handleStateChange} 
+									value={item.value} 
+									id={`${item.label}-${i}`} 
+									aria-describedby={`${item.label}-${i}`} 
+									required 
+								/>
+								<FormHelperText id="my-helper-text">We'll never share your email.</FormHelperText>
+							</FormControl>
+						</Grid>
+					))}
+				</Grid>
+				<Button variant="contained" disabled={isFormFilledOut()} onClick={handleAddNewProfile}>Save</Button>
+				<Button onClick={props.handleCloseModal}>Close</Button>
 			</Box>
 		</>
 	)
