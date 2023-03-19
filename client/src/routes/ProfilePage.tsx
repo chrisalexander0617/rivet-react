@@ -70,7 +70,7 @@ export const ProfilePage = () => {
             <Typography variant="h5">Notes:{profile.notes}</Typography>
           </Box>
           <Button onClick={() => isModalOpen(!modalOpen)} sx={{ my: 3, mr: 2 }} variant="contained">Edit Profile</Button>
-          <Button onClick={() => isModalOpen(!modalOpen)} sx={{ my: 3 }} variant="outlined">Back Home</Button>
+          <Button href="/" sx={{ my: 3 }} variant="outlined">Back Home</Button>
         </Box>
       </Container>
     {modalOpen && (
