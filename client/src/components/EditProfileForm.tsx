@@ -1,9 +1,10 @@
 import React, { useState } from 'react'
 import { Box, Button, TextField } from '@mui/material'
-import { ProfileType } from '../types/Profile'
+import { ProfileType, EditProfileFormActions } from '../types/Profile'
 import { ProfileAPI } from '../api/services/Profiles'
 
-export const EditProfileForm: React.FC<ProfileType> = ({
+
+export const EditProfileForm: React.FC<ProfileType & EditProfileFormActions> = ({
   id,
   first_name,
   last_name,
@@ -14,7 +15,8 @@ export const EditProfileForm: React.FC<ProfileType> = ({
   state,
   zip,
   photo,
-  notes
+  notes,
+  handleCloseModal
 }) => {
   const [firstNameValue, setFirstNameValue] = useState<string>(first_name)
   const [lastNameValue, setLastNameValue] = useState<string>(last_name)
@@ -44,26 +46,25 @@ export const EditProfileForm: React.FC<ProfileType> = ({
   const handleUpdateProfile = async () => {
     try {
       await ProfileAPI.updateProfile(id, updatedProfile)
-      console.log('result')
     } catch (err) {
       throw new Error(`${err}`)
     }
   }
 
   const styles = {
-    display:'flex',
-    flexDirection:'column',
-    gap:3,
-		position: 'absolute' as 'absolute',
-		top: '50%',
-		left: '50%',
-		transform: 'translate(-50%, -50%)',
-		width: 400,
-		bgcolor: '#fafafa',
-		p: 4,
-    boxShadow:4,
-		zIndex:20
-	};
+    display: 'flex',
+    flexDirection: 'column',
+    gap: 3,
+    position: 'absolute' as 'absolute',
+    top: '50%',
+    left: '50%',
+    transform: 'translate(-50%, -50%)',
+    width: 400,
+    bgcolor: '#fafafa',
+    p: 4,
+    boxShadow: 4,
+    zIndex: 20
+  };
 
   return (
     <>
@@ -79,6 +80,7 @@ export const EditProfileForm: React.FC<ProfileType> = ({
         <TextField onChange={e => setPhotoValue(e.target.value)} label="photo" value={photoValue} />
         <TextField onChange={e => setNotesValue(e.target.value)} label="notes" value={notesValue} />
         <Button onClick={handleUpdateProfile}>Update</Button>
+        <Button onClick={handleCloseModal}>Close</Button>
       </Box>
     </>
   )

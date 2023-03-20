@@ -40,3 +40,18 @@ export interface FieldDataType {
 	required:boolean
 	handleStateChange: (e: React.ChangeEvent<HTMLInputElement>) => void
 }
+
+export interface EditProfileFormActions {
+    handleCloseModal:() => void
+}
+  
+
+export interface TablePaginationActionsProps {
+  count: number;
+  page: number;
+  rowsPerPage: number;
+  onPageChange: (
+    event: React.MouseEvent<HTMLButtonElement>,
+    newPage: number,
+  ) => void;
+}
