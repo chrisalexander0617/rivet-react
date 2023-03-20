@@ -1,5 +1,13 @@
 import { useState } from 'react'
-import { Box, Button, FormControl, InputLabel, Input, FormHelperText, Grid, Typography } from '@mui/material'
+import {
+	Box, 
+	Button, 
+	FormControl, 
+	InputLabel, 
+	Input, 
+	Grid, 
+	Typography 
+} from '@mui/material'
 import { NewProfileType, FieldDataType } from '../types/Profile'
 import { ProfileAPI } from '../api/services/Profiles'
 
@@ -48,18 +56,10 @@ export const AddNewProfileForm = (props:AddNewProfileFormProps) => {
 	}
 
 	const handleAddNewProfile = async () => {
-		// resets errors when user retries
 		setErrors([])
 
 		try {
 			const result = await ProfileAPI.createNewProfile(newProfile)
-
-			console.log('Result from API', result)
-
-
-
-			// find a way tp make sure all 
-			// error data is sent to the catch block
 
 			if (result.errors){
 				let errorsStringArray:string[] = []

@@ -1,13 +1,18 @@
 import { useEffect, useState, useRef } from 'react'
 import { useParams } from 'react-router-dom'
 import { ProfileAPI } from '../api/services/Profiles';
-import { Box, Container, Typography, Button } from '@mui/material'
-import { EditProfileForm } from '../components/EditProfileForm';
-import { isValidHttpUrl } from '../utils'
+import { 
+  Box, 
+  Container, 
+  Typography, 
+  Button,
+  Skeleton
+} from '@mui/material'
 import MailOutlineIcon from '@mui/icons-material/MailOutline';
 import SmartphoneOutlinedIcon from '@mui/icons-material/SmartphoneOutlined';
 import HomeOutlinedIcon from '@mui/icons-material/HomeOutlined';
-import Skeleton from '@mui/material/Skeleton';
+import { EditProfileForm } from '../components/EditProfileForm';
+import { isValidHttpUrl } from '../utils'
 
 export const ProfilePage = () => {
   const mounted = useRef(false)
@@ -72,7 +77,7 @@ export const ProfilePage = () => {
           />
           <Box sx={{display:'flex', flexDirection:'row', gap:1}}>
             {!profile ? <Skeleton variant="rectangular" width={200} height={30} /> : <Typography fontWeight={700} mr={1} variant="h4">{profile.first_name}</Typography>}
-            {!profile ? <Skeleton variant="rectangular" width={200} height={30} />: <Typography fontWeight={700} variant="h4">{profile.last_name}</Typography>}
+            {!profile ? <Skeleton variant="rectangular" width={200} height={30} /> : <Typography fontWeight={700} variant="h4">{profile.last_name}</Typography>}
           </Box>
           <Box sx={{display:'flex', alignItems:'center', gap:1}}>
             <SmartphoneOutlinedIcon />

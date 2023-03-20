@@ -1,6 +1,6 @@
 import { useEffect, useState } from 'react';
 import '../App.css';
-import {Box, Typography} from '@mui/material'
+import {Box} from '@mui/material'
 import {Navbar} from '../components/NavBar/NavBar'
 import { ProfileAPI } from '../api/services/Profiles';
 import { ProfileType } from '../../src/types/Profile/index'
@@ -20,12 +20,16 @@ export const Root = () => {
     return result
   }
   
-  const handleCloseModal = () =>  {
-    isModalOpen(false)
-  }
+  const handleCloseModal = () => isModalOpen(false)
+  const handleOpenModal = () => isModalOpen(true)
 
-  const handleOpenModal = () =>  {
-    isModalOpen(true)
+  const styles = {
+    FlexBoxColumn:{
+      display:'flex', 
+      alignItems:'left', 
+      flexDirection:'column', 
+      gap:3
+    }
   }
 
   useEffect(() => {
@@ -38,14 +42,7 @@ export const Root = () => {
     <Box p={1} className="App">
       <Navbar handleOpenModal={handleOpenModal} />
         {modalOpen && <AddNewProfileForm handleCloseModal={handleCloseModal} />}
-        <Box sx={{
-            display:'flex',
-            alignItems:'left',
-            flexDirection:'column',
-            gap:3
-          }} 
-          p={3}>
-          <Typography variant="h4" align="left">Profile Directory</Typography>
+        <Box sx={styles.FlexBoxColumn} p={3}>
           <ProfileTable profiles={profiles} />
         </Box>
     </Box>
