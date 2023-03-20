@@ -196,7 +196,7 @@ export const AddNewProfileForm = (props:AddNewProfileFormProps) => {
 						<Typography color="red">{error}</Typography>
 					))}
 				</Box>
-				<Grid container>
+				<Grid container spacing={3}>
 					{fieldData.map((item, i) => (
 						<Grid item xs={6}>
 							<FormControl>

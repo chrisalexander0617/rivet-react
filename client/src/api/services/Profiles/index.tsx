@@ -23,7 +23,6 @@ const ListProfiles = async () => {
       } else if (err.request) {
         console.log(err.request);
       } else {
-        // Something happened in setting up the request that triggered an Error
         console.log('Error', err.message);
       }
     throw err;
@@ -45,7 +44,7 @@ const updateProfile = async (id:number, updatedProfile:ProfileType) => {
   const apiURL = `https://codechallenge.rivet.work/api/v1/profile/${id}`
 
   try {
-    const response = await axios.put(apiURL,updatedProfile, config)
+    await axios.put(apiURL,updatedProfile, config)
     window.location.reload()
   } catch (err){
     throw new Error(`Unable to get the employees profiles: ${err}`);
