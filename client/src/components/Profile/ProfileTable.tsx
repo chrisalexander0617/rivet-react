@@ -5,7 +5,7 @@ import TableCell from '@mui/material/TableCell';
 import TableContainer from '@mui/material/TableContainer';
 import TableHead from '@mui/material/TableHead';
 import TableRow from '@mui/material/TableRow';
-import {Box, TablePagination, TableFooter, useTheme, IconButton} from '@mui/material'
+import {Box, TablePagination, TableFooter, useTheme, IconButton, Typography} from '@mui/material'
 import Paper from '@mui/material/Paper';
 import { ProfileListType } from '../../types/Profile/index'
 import FirstPageIcon from '@mui/icons-material/FirstPage';
@@ -13,6 +13,8 @@ import KeyboardArrowLeft from '@mui/icons-material/KeyboardArrowLeft';
 import KeyboardArrowRight from '@mui/icons-material/KeyboardArrowRight';
 import LastPageIcon from '@mui/icons-material/LastPage';
 import { Link } from 'react-router-dom'
+import { isValidHttpUrl } from '../../utils'
+
 
 interface TablePaginationActionsProps {
   count: number;
@@ -101,44 +103,46 @@ export const ProfileTable: React.FC<ProfileListType> = ({ profiles }) => {
     setPage(0);
   };
 
+  const styles = {
+    ProfileImage:{
+      height: 75,
+      width: 75,
+      borderRadius: '100%',
+      objectFit: 'cover',
+      border:'solid white 15px'
+    }
+  }
+
   return (
     <TableContainer component={Paper}>
-      <Table sx={{ minWidth: 30 }} aria-label="simple table">
-        <TableHead>
-          <TableRow>
-            <TableCell></TableCell>
-            <TableCell align="left">First Name</TableCell>
-            <TableCell align="left">Last Name</TableCell>
-            <TableCell align="right">Email</TableCell>
-            <TableCell align="right">City</TableCell>
-            <TableCell align="right">State</TableCell>
-          </TableRow>
-        </TableHead>
+      <Table aria-label="simple table">
         <TableBody>
           {(rowsPerPage > 0
             ? profiles.slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage)
             : profiles
           ).map((profile) => (
-            <TableRow key={profile.first_name}>
-               <TableCell style={{ width: 1 }} component="th" scope="row">
-               <Link to={`/profile/${profile.id.toString()}`}>View Profile</Link>
-              </TableCell>
-              <TableCell style={{ width: 100 }} component="th" scope="row">
-                {profile.first_name}
-              </TableCell>
-              <TableCell style={{ width: 100 }} component="th" scope="row" align="left">
-                {profile.last_name}
-              </TableCell>
-              <TableCell style={{ width: 100 }} align="right">
-                {profile.email}
-              </TableCell>
-              <TableCell style={{ width: 100 }} align="right">
-                {profile.city}
-              </TableCell>
-              <TableCell style={{ width: 100 }} align="right">
-                {profile.state}
-              </TableCell>
-            </TableRow>
+              <TableRow key={profile.first_name}>
+                <TableCell component="th" scope="row">
+                  <Link to={`/profile/${profile.id.toString()}`}>
+                    <Box
+                      p={0}
+                      component="img"
+                      sx={styles.ProfileImage}
+                      src={isValidHttpUrl(profile?.photo) ? profile?.photo : 'https://cdn.pixabay.com/photo/2015/10/05/22/37/blank-profile-picture-973460_1280.png'}
+                    />
+                  </Link>
+                </TableCell>
+                <TableCell  component="th" scope="row">
+                  <Typography variant="h5">{profile.first_name}</Typography>
+                </TableCell>
+                <TableCell component="th" scope="row" align="left">
+                <Typography variant="h5">{profile.last_name}</Typography>
+                </TableCell>
+                <TableCell align="left">
+                  <Typography variant="h5">{profile.email}</Typography>
+                </TableCell>
+              </TableRow>
+        
           ))}
           {emptyRows > 0 && (
             <TableRow style={{ height: 53 * emptyRows }}>
@@ -146,11 +150,12 @@ export const ProfileTable: React.FC<ProfileListType> = ({ profiles }) => {
             </TableRow>
           )}
         </TableBody>
-        <TableFooter>
+      </Table>
+      <TableFooter>
           <TableRow>
             <TablePagination
               rowsPerPageOptions={[5, 10, 25, { label: 'All', value: -1 }]}
-              colSpan={3}
+              colSpan={1}
               count={profiles.length}
               rowsPerPage={rowsPerPage}
               page={page}
@@ -160,13 +165,13 @@ export const ProfileTable: React.FC<ProfileListType> = ({ profiles }) => {
                 },
                 native: true,
               }}
+              width="100%"
               onPageChange={handleChangePage}
               onRowsPerPageChange={handleChangeRowsPerPage}
               ActionsComponent={TablePaginationActions}
             />
           </TableRow>
         </TableFooter>
-      </Table>
     </TableContainer>
   );
 }

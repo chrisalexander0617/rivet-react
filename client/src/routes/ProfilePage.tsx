@@ -4,6 +4,10 @@ import { ProfileAPI } from '../api/services/Profiles';
 import { Box, Container, Typography, Button } from '@mui/material'
 import { EditProfileForm } from '../components/EditProfileForm';
 import { isValidHttpUrl } from '../utils'
+import MailOutlineIcon from '@mui/icons-material/MailOutline';
+import SmartphoneOutlinedIcon from '@mui/icons-material/SmartphoneOutlined';
+import HomeOutlinedIcon from '@mui/icons-material/HomeOutlined';
+import Skeleton from '@mui/material/Skeleton';
 
 export const ProfilePage = () => {
   const mounted = useRef(false)
@@ -33,7 +37,12 @@ export const ProfilePage = () => {
       borderRadius: '100%',
       maxHeight: { xs: 233, md: 233 },
       maxWidth: { xs: 233, md: 233 },
-      objectFit: 'cover'
+      objectFit: 'cover',
+      border:'solid white 15px'
+    },
+    Header: {
+      height:'300px',
+      background: 'linear-gradient(90deg, rgba(2,0,36,1) 0%, rgba(33,33,255,1) 0%, rgba(188,0,255,1) 100%)'  
     }
   }
 
@@ -49,33 +58,42 @@ export const ProfilePage = () => {
     return () => { mounted.current = false }
   }, [routeParams.id])
 
-  if (!profile) return <div>...loading</div>
-
   return (
     <Box className="App">
+      <Box sx={styles.Header}></Box>
       <Container>
         <Box py={5} sx={styles.ProfileWrapper}>
-        <Typography variant="body1" mb={1}>Profile</Typography>
-        <Box sx={styles.FlexBox}>
+        <Box mt={-20} sx={styles.FlexBox}>
           <Box
             component="img"
             sx={styles.ProfileImage}
             alt="The house from the offer."
-            src={isValidHttpUrl(profile.photo) ? profile.photo : 'https://cdn.pixabay.com/photo/2015/10/05/22/37/blank-profile-picture-973460_1280.png'}
+            src={isValidHttpUrl(profile?.photo) ? profile?.photo : 'https://cdn.pixabay.com/photo/2015/10/05/22/37/blank-profile-picture-973460_1280.png'}
           />
-            <Typography mr={1} variant="h3">{profile.first_name}</Typography>
-            <Typography variant="h3">{profile.last_name}</Typography>
-            <Typography variant="h5">Phone #:{profile.phone}</Typography>
-            <Typography variant="h5">Email:{profile.email}</Typography>
-            <Typography variant="h5">Address:{profile.address}</Typography>
-            <Typography variant="h5">City:{profile.city}</Typography>
-            <Typography variant="h5">State:{profile.state}</Typography>
-            <Typography variant="h5">Notes:{profile.notes}</Typography>
+          <Box sx={{display:'flex', flexDirection:'row', gap:1}}>
+            {!profile ? <Skeleton variant="rectangular" width={200} height={30} /> : <Typography fontWeight={700} mr={1} variant="h4">{profile.first_name}</Typography>}
+            {!profile ? <Skeleton variant="rectangular" width={200} height={30} />: <Typography fontWeight={700} variant="h4">{profile.last_name}</Typography>}
           </Box>
-          <Button onClick={() => isModalOpen(!modalOpen)} sx={{ my: 3, mr: 2 }} variant="contained">Edit Profile</Button>
-          <Button href="/" sx={{ my: 3 }} variant="outlined">Back Home</Button>
+          <Box sx={{display:'flex', alignItems:'center', gap:1}}>
+            <SmartphoneOutlinedIcon />
+            {!profile ? <Skeleton variant="rectangular" width={200} height={30} /> : <Typography variant="h5">{profile.phone}</Typography>}
+          </Box>
+          <Box sx={{display:'flex', alignItems:'center', gap:1}}>
+            <MailOutlineIcon/>
+            {!profile ? <Skeleton variant="rectangular" width={200} height={30} /> : <Typography variant="h5">{profile.email}</Typography>}
+          </Box>
+          <Box sx={{display:'flex', alignItems:'center', gap:1}}>
+            <HomeOutlinedIcon />
+            {!profile ? <Skeleton variant="rectangular" width={200} height={30} /> : <Typography variant="h5">{profile.address}</Typography>}
+            {!profile ? <Skeleton variant="rectangular" width={200} height={30} /> : <Typography variant="h5">{profile.city}, </Typography>}
+            {!profile ? <Skeleton variant="rectangular" width={200} height={30} /> : <Typography variant="h5">{profile.state}</Typography>}
+          </Box>
+          {!profile ? <Skeleton variant="rectangular" width={400} height={50} /> : <Typography variant="h5">{profile.notes}</Typography>}
         </Box>
-      </Container>
+        <Button onClick={() => isModalOpen(!modalOpen)} sx={{ my: 3, mr: 2 }} variant="contained">Edit Profile</Button>
+        <Button href="/" sx={{ my: 3 }} variant="outlined">Back Home</Button>
+      </Box>
+    </Container>
     {modalOpen && (
     <EditProfileForm
       id={profile.id}
