@@ -1,12 +1,12 @@
 import { useState } from 'react'
 import {
-	Box, 
-	Button, 
-	FormControl, 
-	InputLabel, 
-	Input, 
-	Grid, 
-	Typography 
+Box, 
+Button, 
+FormControl, 
+InputLabel, 
+Input, 
+Grid, 
+Typography 
 } from '@mui/material'
 import { NewProfileType, FieldDataType } from '../types/Profile'
 import { ProfileAPI } from '../api/services/Profiles'
