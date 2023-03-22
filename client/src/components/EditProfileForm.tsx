@@ -46,6 +46,8 @@ export const EditProfileForm: React.FC<ProfileType & EditProfileFormActions> = (
   const handleUpdateProfile = async () => {
     try {
       await ProfileAPI.updateProfile(id, updatedProfile)
+      window.location.reload()
+
     } catch (err) {
       throw new Error(`${err}`)
     }

@@ -13,16 +13,26 @@ import SmartphoneOutlinedIcon from '@mui/icons-material/SmartphoneOutlined';
 import HomeOutlinedIcon from '@mui/icons-material/HomeOutlined';
 import { EditProfileForm } from '../components/EditProfileForm';
 import { isValidHttpUrl } from '../utils'
+import { ScreenLoader } from '../components/ScreenLoader';
+import { useNavigate } from "react-router-dom";
 
 export const ProfilePage = () => {
   const mounted = useRef(false)
   const [profile, setProfile] = useState<any>()
   const [modalOpen, isModalOpen] = useState<boolean>(false)
+  const [loading, isLoading] = useState<boolean>(false)
   const routeParams = useParams();
+  const navigate = useNavigate()
+
 
   const getSingleProfile = async (id: string) => {
     const result = await ProfileAPI.getProfile(id)
     if (result) setProfile(result)
+  }
+
+  const handleReturnToHome = (): void => {
+    isLoading(true)
+    navigate("/")
   }
 
   const styles = {
@@ -65,6 +75,8 @@ export const ProfilePage = () => {
     return () => { mounted.current = false }
   }, [routeParams.id])
 
+  if (loading) return <ScreenLoader />
+
   return (
     <Box className="App">
       <Box sx={styles.Header}></Box>
@@ -98,7 +110,7 @@ export const ProfilePage = () => {
             {!profile ? <Skeleton variant="rectangular" width={400} height={50} /> : <Typography variant="h5">{profile.notes}</Typography>}
           </Box>
           <Button onClick={() => isModalOpen(!modalOpen)} sx={{ my: 3, mr: 2 }} variant="contained">Edit Profile</Button>
-          <Button href="/" sx={{ my: 3 }} variant="outlined">Back Home</Button>
+          <Button onClick={handleReturnToHome} sx={{ my: 3 }} variant="outlined">Back Home</Button>
         </Box>
       </Container>
       {modalOpen && (

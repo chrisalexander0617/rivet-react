@@ -43,7 +43,7 @@ const updateProfile = async (id: number, updatedProfile: ProfileType) => {
 
   try {
     await axios.put(apiURL, updatedProfile, config)
-    window.location.reload()
+
   } catch (err: any) {
     if (err.response) {
       return err.response.data
