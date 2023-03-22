@@ -3,7 +3,7 @@ import { ProfileType, NewProfileType } from '../../../types/Profile';
 
 const config = {
   headers: {
-    "token": "004ec00c497c58a80b1e16d70ec78ba1a7f6cff504f02af67af9c530ad9fc591",
+    "token": process.env.REACT_APP_API_TOKEN,
     "content-type": "application/json"
   }
 }

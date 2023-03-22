@@ -108,6 +108,8 @@ export const ProfileTable: React.FC<ProfileListType> = ({ profiles }) => {
     }
   }
 
+  if (!profiles || !profiles.length) return <div>No profiles</div>
+
   return (
     <TableContainer component={Paper}>
       <Table aria-label="simple table">
